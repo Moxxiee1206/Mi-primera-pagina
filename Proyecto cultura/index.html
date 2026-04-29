@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yo Digital</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+    color: white;
+}
+
+/* 🌌 Fondo animado */
+body::before {
+    content: "";
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 20% 20%, #00c3ff, transparent),
+                radial-gradient(circle at 80% 80%, #0077ff, transparent),
+                black;
+    animation: moverFondo 10s infinite alternate;
+    z-index: -1;
+}
+
+@keyframes moverFondo {
+    0% { transform: translate(0,0); }
+    100% { transform: translate(-50px, -50px); }
+}
+
+/* Contenedor */
+.overlay {
+    min-height: 100vh;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* Título */
+h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    animation: fadeDown 1s ease;
+}
+
+/* Perfil */
+.perfil {
+    width: 160px;
+    height: 160px;
+    border-radius: 20px;
+    object-fit: cover;
+    border: 3px solid rgba(255,255,255,0.6);
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+    animation: fadeUp 1s ease;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+/* TARJETAS */
+.card {
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    backdrop-filter: blur(15px);
+    transition: transform 0.2s;
+    transform-style: preserve-3d;
+}
+
+.card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+/* BOTÓN */
+.btn {
+    display: block;
+    margin: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #00c3ff, #0077ff);
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+}
+
+/* Animaciones */
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    h1 { font-size: 2.5rem; }
+    .perfil { width: 120px; height: 120px; }
+}
+</style>
+</head>
+	
+<body>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSedETymgG1dm6KquwBUXvrvmVn8YAY1e5CeQ&s">
+
+<div class="overlay">
+	
+    <h1>Yo Digital</h1>
+
+    <img src="https://i.pinimg.com/originals/f3/bb/45/f3bb459e1ecb5f269032dc644f1681b4.png" class="perfil">
+
+    <div class="grid">
+
+        <div class="card" onmousemove="tilt(event)" onmouseleave="reset(this)">
+            <img src="https://akamai.sscdn.co/tb/letras-blog/wp-content/uploads/2024/11/9b4cdf7-lasso-edited.jpg">
+            <a href="lasso.html" class="btn">Artista</a>
+        </div>
+
+        <div class="card" onmousemove="tilt(event)" onmouseleave="reset(this)">
+            <img src="https://laestatuilla.com/wp-content/uploads/2024/12/moana-2-critica-opinion.jpg">
+            <a href="pelicula.html" class="btn">Película</a>
+        </div>
+
+        <div class="card" onmousemove="tilt(event)" onmouseleave="reset(this)">
+            <img src="https://thumbs.dreamstime.com/b/gato-gris-que-se-reclina-en-c%C3%A9sped-24468371.jpg">
+            <a href="animal.html" class="btn">Animal</a>
+        </div>
+
+        <div class="card" onmousemove="tilt(event)" onmouseleave="reset(this)">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGaGS48jof9nRvKeyd7qQwK_iCidMuf9OvVg&s">
+            <a href="comida.html" class="btn">Comida</a>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+// 🎯 Efecto 3D al mover el mouse
+function tilt(e) {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = -(y - centerY) / 10;
+    const rotateY = (x - centerX) / 10;
+
+    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+}
+
+function reset(card) {
+    card.style.transform = "rotateX(0) rotateY(0) scale(1)";
+}
+</script>
+
+</body>
+</html>
